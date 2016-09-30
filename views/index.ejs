@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Minesweeper</title>
+        <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div id="field">
+    <% if (message !== null) { %>
+      <div class="alert">
+        <h1><%= message %></h1>
+        <a href="/">click here to restart</a>
+      </div>
+    <% } %>
+
+    <table>
+      <% field.map(function(row, rowIndex) { %>
+        <tr>
+          <% row.map(function(tile, tileIndex) { %>
+            <% if (tile['state'] === 'hidden') { %>
+              <td class="hidden"><a href="/<%= tileIndex %>-<%= rowIndex %>" aria-label="Reveal tile">&nbsp;</a></td>
+            <% } else { %>
+              <% if (tile['value'] === 0) { %>
+                <td>&nbsp;</td>
+              <% } else if (tile['value'] === 'B') { %>
+                <td><img src="/img/bomb.png" alt="Bomb" /></td>
+              <% } else { %>
+                <td
+                  <% if (tile['value'] === 1) { %>
+                    class="number-one"
+                  <% } else if (tile['value'] === 2) { %>
+                    class="number-two"
+                  <% } else if (tile['value'] === 3) { %>
+                    class="number-three"
+                  <% } else if (tile['value'] === 4) { %>
+                    class="number-four"
+                  <% } else if (tile['value'] === 5) { %>
+                    class="number-five"
+                  <% } %>
+                >
+                  <%= tile['value'] %>
+                </td>
+              <% } %>
+            <% } %>
+          <% }); %>
+        </tr>
+      <% }); %>
+    </table>
+  </div>
+
+  <script type="text/javascript" src="/js/sweeper.js"></script>
+</body>
+</html>
+
