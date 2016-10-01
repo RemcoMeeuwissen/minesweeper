@@ -8,7 +8,6 @@ Install the required dependencies using "npm install" and then start it using "n
 
 ## Todo
 
-* Clean up the error pages
 * Refactor backend
 	* Break minesweeper.js up into smaller files
 	* Lint using the airbnb config

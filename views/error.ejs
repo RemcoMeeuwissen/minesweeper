@@ -1,3 +1,17 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Minesweeper</title>
+        <link rel="stylesheet" href="/css/style.min.css">
+</head>
+<body>
+  <div class="error">
+    <h1><%= message %></h1>
+    <p><a href="/">Click here to try again</a></p>
+  </div>
+</body>
+</html>

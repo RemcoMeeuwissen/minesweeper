@@ -88,3 +88,8 @@ a:hover {
 .options {
   text-align: center;
 }
+
+.error {
+  max-width: 70em;
+  text-align: center;
+}
