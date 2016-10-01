@@ -42,6 +42,33 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/new', function(req, res, next) {
+  if (req.cookies.user === undefined) {
+    var user = uuid.v4();
+    res.cookie('user', user, { expires: new Date(Date.now() + (24 * (60 * (60 * 1000)))) });
+  } else {
+    var user = req.cookies.user;
+  }
+
+  db.get('SELECT * FROM saves WHERE userid=?', user, function(err, row) {
+    if (err) {
+      res.render('error', { message: 'Database connection failed' });
+    } else {
+      if (row === undefined) {
+        res.redirect('/');
+      } else {
+        db.run('DELETE FROM saves WHERE userid=?', user, function(deleteErr) {
+          if (deleteErr) {
+            res.render('error', { message: 'Unable to delete your save' });
+          } else {
+            res.redirect('/');
+          }
+        });
+      }
+    }
+  });
+});
+
 router.get('/:coords', function(req, res, next) {
   var coords = req.params.coords;
   var x = Number(coords[0]);
