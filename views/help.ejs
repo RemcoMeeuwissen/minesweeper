@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Minesweeper</title>
+        <link rel="stylesheet" href="/css/style.min.css">
+</head>
+<body>
+  <div class="help">
+    <h1>How to play</h1>
+
+    <p>The goal of minesweeper is to find all the bombs. You can do this by revealing all the tiles until only those with bombs are hidden. When you reveal a tile there are three things that can happen. The first is that you click on a bomb, in which case you will lose. The second is that you clicked on a tile with no bombs surrounding it, which will reveal a larger area of tiles. And the third is that you will be shown a number.</p>
+
+    <p>When you are shown a number it will indicate how many bombs are surrounding that tile. In the following example there is only one tile where the bomb can be (with the other tiles revealed for clarity):</p>
+
+    <table>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="hidden"><a href="#" aria-label="Reveal tile">&nbsp;</a></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="number-one">1</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+
+    <p>But in this example there are three bombs surrounding the tile:</p>
+
+    <table>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="hidden"><a href="#" aria-label="Reveal tile">&nbsp;</a></td>
+      </tr>
+      <tr>
+        <td class="hidden"><a href="#" aria-label="Reveal tile">&nbsp;</a></td>
+        <td class="number-three">3</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="hidden"><a href="#" aria-label="Reveal tile">&nbsp;</a></td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+
+    <p>So when you get a number make sure the look at the other numbers around it that you've revealed to determine the location of the bombs!</p>
+
+    <h1>Credits</h1>
+
+    <p>This game has been developed by <a href="http://www.kalm.io">Remco Meeuwissen</a> for the <a href="https://a-k-apart.com/">10k Apart</a> challenge. The bomb sprite was created by <a href="http://opengameart.org/content/bombs">Chrisblue and found on OpenGameArt.org</a></p>
+
+    <a href="/">Click here to play</a>
+  </div>
+</body>
+</html>
+

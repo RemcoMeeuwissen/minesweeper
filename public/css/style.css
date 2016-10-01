@@ -58,7 +58,7 @@ td.hidden {
   background: linear-gradient( 180deg, #225ed0, #2057c1 );
 }
 
-a {
+td a {
   display: block;
   padding: 0.8em;
   text-decoration: none;
@@ -71,4 +71,20 @@ a {
 td img {
   max-width: 100%;
   height: auto;
+}
+
+.help {
+    max-width: 70em;
+}
+
+a {
+  color: #000;
+}
+
+a:hover {
+  color: #AB0705;
+}
+
+.options {
+  text-align: center;
 }
