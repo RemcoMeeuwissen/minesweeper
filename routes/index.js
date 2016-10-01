@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var uuid = require('node-uuid');
 var sqlite3 = require('sqlite3').verbose();
-var minesweeper = require('../minesweeper.js');
+var minesweeper = require('../minesweeper');
 
 var db = new sqlite3.Database('sweeper.db');
 
