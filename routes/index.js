@@ -1,33 +1,35 @@
-var express = require('express');
-var router = express.Router();
-var uuid = require('node-uuid');
-var sqlite3 = require('sqlite3').verbose();
-var minesweeper = require('../minesweeper');
+const express = require('express');
+const uuid = require('node-uuid');
+const sqlite3 = require('sqlite3').verbose();
+const minesweeper = require('../minesweeper');
 
-var db = new sqlite3.Database('sweeper.db');
+const router = express.Router();
+const db = new sqlite3.Database('sweeper.db');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res) => {
+  let user = '';
   if (req.cookies.user === undefined) {
-    var user = uuid.v4();
+    user = uuid.v4();
     res.cookie('user', user, { expires: new Date(Date.now() + (24 * (60 * (60 * 1000)))) });
   } else {
-    var user = req.cookies.user;
+    user = req.cookies.user;
   }
 
-  db.get('SELECT * FROM saves WHERE userid=?', user, function(err, row) {
-    if (err) {
+  db.get('SELECT * FROM saves WHERE userid=?', user, (selectErr, row) => {
+    if (selectErr) {
       res.render('error', { message: 'Database connection failed' });
     } else {
+      let field = '';
+
       if (row === undefined) {
-        var field = minesweeper.buildField(minesweeper.generateBombs());
+        field = minesweeper.buildField(minesweeper.generateBombs());
         db.run('INSERT INTO saves (userid, field) VALUES (?, ?)', user, JSON.stringify(field));
       } else {
-        var field = JSON.parse(row.field);
+        field = JSON.parse(row.field);
       }
 
-      var gameStatus = minesweeper.checkStatus(field);
-      var message = null;
+      const gameStatus = minesweeper.checkStatus(field);
+      let message = null;
 
       if (gameStatus.lost) {
         db.run('DELETE FROM saves WHERE userid=?', user);
@@ -42,65 +44,64 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/new', function(req, res, next) {
+router.get('/new', (req, res) => {
+  let user = '';
+
   if (req.cookies.user === undefined) {
-    var user = uuid.v4();
+    user = uuid.v4();
     res.cookie('user', user, { expires: new Date(Date.now() + (24 * (60 * (60 * 1000)))) });
   } else {
-    var user = req.cookies.user;
+    user = req.cookies.user;
   }
 
-  db.get('SELECT * FROM saves WHERE userid=?', user, function(err, row) {
-    if (err) {
+  db.get('SELECT * FROM saves WHERE userid=?', user, (selectErr, row) => {
+    if (selectErr) {
       res.render('error', { message: 'Database connection failed' });
+    } else if (row === undefined) {
+      res.redirect('/');
     } else {
-      if (row === undefined) {
-        res.redirect('/');
-      } else {
-        db.run('DELETE FROM saves WHERE userid=?', user, function(deleteErr) {
-          if (deleteErr) {
-            res.render('error', { message: 'Unable to delete your save' });
-          } else {
-            res.redirect('/');
-          }
-        });
-      }
+      db.run('DELETE FROM saves WHERE userid=?', user, (deleteErr) => {
+        if (deleteErr) {
+          res.render('error', { message: 'Unable to delete your save' });
+        } else {
+          res.redirect('/');
+        }
+      });
     }
   });
 });
 
-router.get('/:coords', function(req, res, next) {
-  var coords = req.params.coords;
-  var x = Number(coords[0]);
-  var y = Number(coords[2]);
+router.get('/:coords', (req, res) => {
+  const coords = req.params.coords;
+  const x = Number(coords[0]);
+  const y = Number(coords[2]);
+  let user = '';
 
   if (req.cookies.user === undefined) {
-    var user = uuid.v4();
+    user = uuid.v4();
     res.cookie('user', user, { expires: new Date(Date.now() + (24 * (60 * (60 * 1000)))) });
   } else {
-    var user = req.cookies.user;
+    user = req.cookies.user;
   }
 
-  db.get('SELECT * FROM saves WHERE userid=?', user, function(err, row) {
-    if (err) {
+  db.get('SELECT * FROM saves WHERE userid=?', user, (selectErr, row) => {
+    if (selectErr) {
       res.render('error', { message: 'Database connection failed' });
+    } else if (row === undefined) {
+      res.redirect('/');
     } else {
-      if (row === undefined) {
-        res.redirect('/');
-      } else {
-        var field = JSON.parse(row.field);
-        field = minesweeper.revealTile(field, x, y);
+      let field = JSON.parse(row.field);
+      field = minesweeper.revealTile(field, x, y);
 
-        db.run('UPDATE saves SET field=? WHERE userid=?', JSON.stringify(field), user, function(err) {
-          if (err) {
-            res.render('error', { message: 'Database update failed' });
-          } else {
-            res.redirect('/');
-          }
-        });
-      }
+      db.run('UPDATE saves SET field=? WHERE userid=?', JSON.stringify(field), user, (updateErr) => {
+        if (updateErr) {
+          res.render('error', { message: 'Database update failed' });
+        } else {
+          res.redirect('/');
+        }
+      });
     }
-  });  
+  });
 });
 
 module.exports = router;

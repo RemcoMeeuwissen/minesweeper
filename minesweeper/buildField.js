@@ -1,8 +1,8 @@
-module.exports = function(bombs) {
-  var newField = [];
+module.exports = (bombs) => {
+  const newField = [];
 
   while (newField.length < 9) {
-    var row = [];
+    const row = [];
 
     while (row.length < 9) {
       row.push({ state: 'hidden', value: 0 });
@@ -11,22 +11,24 @@ module.exports = function(bombs) {
     newField.push(row);
   }
 
-  bombs.map(function(bomb) {
-    var x = Number(bomb[0]);
-    var y = Number(bomb[2]);
+  bombs.map((bomb) => {
+    const x = Number(bomb[0]);
+    const y = Number(bomb[2]);
 
-    newField[y][x]['value'] = 'B';
+    newField[y][x].value = 'B';
 
-    for (var i = -1; i <= 1; i++) {
-      for (var j = -1; j <= 1; j++) {
-        var xx = x + j;
-        var yy = y + i;
+    for (let i = -1; i <= 1; i += 1) {
+      for (let j = -1; j <= 1; j += 1) {
+        const xx = x + j;
+        const yy = y + i;
 
-        if (newField[yy] !== undefined && newField[yy][xx] !== undefined && newField[yy][xx]['value'] !== 'B') {
-          newField[yy][xx]['value'] += 1;
+        if (newField[yy] !== undefined && newField[yy][xx] !== undefined && newField[yy][xx].value !== 'B') {
+          newField[yy][xx].value += 1;
         }
       }
     }
+
+    return bomb;
   });
 
   return newField;
