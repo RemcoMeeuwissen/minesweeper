@@ -8,8 +8,6 @@ Install the required dependencies using "npm install" and then start it using "n
 
 ## Todo
 
-* Refactor backend
-	* Refactor
 * Refactor frontend
 	* Build javascript from the same module as the backend
 	* Refactor CSS
