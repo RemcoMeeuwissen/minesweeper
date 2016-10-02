@@ -1,6 +1,7 @@
 module.exports = (field) => {
   let lost = false;
   let won = false;
+  // There are 71 non-bomb tiles, if all of them are uncovered the player has won
   let tilesLeft = 71;
 
   field.map((row) => {

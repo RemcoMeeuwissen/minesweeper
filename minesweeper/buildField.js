@@ -1,6 +1,8 @@
 module.exports = (bombs) => {
   const newField = [];
 
+  const isTileABomb = (field, x, y) => (field[y] !== undefined && field[y][x] !== undefined && field[y][x].value !== 'B');
+
   while (newField.length < 9) {
     const row = [];
 
@@ -17,12 +19,13 @@ module.exports = (bombs) => {
 
     newField[y][x].value = 'B';
 
+    // Iterate through every tile around the bomb and increase its number by one
     for (let i = -1; i <= 1; i += 1) {
       for (let j = -1; j <= 1; j += 1) {
         const xx = x + j;
         const yy = y + i;
 
-        if (newField[yy] !== undefined && newField[yy][xx] !== undefined && newField[yy][xx].value !== 'B') {
+        if (isTileABomb(newField, xx, yy)) {
           newField[yy][xx].value += 1;
         }
       }

@@ -4,6 +4,7 @@ module.exports = () => {
   const bombs = [];
 
   while (bombs.length < 10) {
+    // Save the bomb coordinate as x-y
     const coords = `${random(0, 8)}-${random(0, 8)}`;
 
     if (bombs.indexOf(coords) === -1) {
