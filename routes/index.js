@@ -48,9 +48,10 @@ router.get('/', (req, res) => {
       res.render('error', { message: 'Database connection failed' });
     } else {
       const field = getField(row, user);
+      const html = minesweeper.createHTMLTable(field);
       const message = getMessage(minesweeper.checkStatus(field), user);
 
-      res.render('index', { field, message });
+      res.render('index', { html, message });
     }
   });
 });

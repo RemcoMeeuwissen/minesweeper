@@ -17,39 +17,7 @@
       </div>
     <% } %>
 
-    <table>
-      <% field.map(function(row, rowIndex) { %>
-        <tr>
-          <% row.map(function(tile, tileIndex) { %>
-            <% if (tile['state'] === 'hidden') { %>
-              <td class="hidden"><a href="/<%= tileIndex %>-<%= rowIndex %>" aria-label="Reveal tile">&nbsp;</a></td>
-            <% } else { %>
-              <% if (tile['value'] === 0) { %>
-                <td>&nbsp;</td>
-              <% } else if (tile['value'] === 'B') { %>
-                <td><img src="/img/bomb.png" alt="Bomb" /></td>
-              <% } else { %>
-                <td
-                  <% if (tile['value'] === 1) { %>
-                    class="number-one"
-                  <% } else if (tile['value'] === 2) { %>
-                    class="number-two"
-                  <% } else if (tile['value'] === 3) { %>
-                    class="number-three"
-                  <% } else if (tile['value'] === 4) { %>
-                    class="number-four"
-                  <% } else if (tile['value'] === 5) { %>
-                    class="number-five"
-                  <% } %>
-                >
-                  <%= tile['value'] %>
-                </td>
-              <% } %>
-            <% } %>
-          <% }); %>
-        </tr>
-      <% }); %>
-    </table>
+    <%- html %>
 
     <div class="options">
       <a href="/new">New game</a> - <a href="/help">Help</a>
