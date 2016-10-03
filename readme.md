@@ -9,7 +9,6 @@ Install the required dependencies using "npm install" and then start it using "n
 ## Todo
 
 * Refactor frontend
-	* Build javascript from the same module as the backend
 	* Refactor CSS
 * Tweak the frontend to use the level presented by the backend
 * Add tests
