@@ -51,7 +51,7 @@ router.get('/', (req, res) => {
       const html = minesweeper.createHTMLTable(field);
       const message = getMessage(minesweeper.checkStatus(field), user);
 
-      res.render('index', { html, message });
+      res.render('index', { html, field: JSON.stringify(field), message });
     }
   });
 });

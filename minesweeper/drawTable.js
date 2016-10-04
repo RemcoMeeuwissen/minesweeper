@@ -10,6 +10,10 @@ const drawTable = (field) => {
     const x = href[0];
     const y = href[2];
 
+    const httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', `/${x}-${y}`);
+    httpRequest.send();
+
     if (clickField[y] !== undefined && clickField[y][x] !== undefined && clickField[y][x].state === 'hidden') {
       if (clickField[y][x].value === 0) {
         clickField = revealTile(clickField, x, y);
@@ -36,9 +40,9 @@ const drawTable = (field) => {
       let message = null;
 
       if (state.lost) {
-        message = '<h1>You\'ve lost :(</h1><a href="/">click here to restart</a>';
+        message = '<h1>You\'ve lost :(</h1><a href="/new">click here to restart</a>';
       } else if (state.won) {
-        message = '<h1>You\'ve won!</h1><a href="/">click here to restart</a>';
+        message = '<h1>You\'ve won!</h1><a href="/new">click here to restart</a>';
       }
 
       const messageDiv = document.createElement('div');
