@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 const gulp = require('gulp');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
